@@ -8,34 +8,12 @@ import flash from 'express-flash'
 import path from 'path'
 import mongoose from 'mongoose'
 import passport from 'passport'
-import bluebird from 'bluebird'
-
-import { MONGODB_URI, SESSION_SECRET } from './util/secrets'
 
 import movieRouter from './routers/movie'
-
 import apiErrorHandler from './middlewares/apiErrorHandler'
 import apiContentType from './middlewares/apiContentType'
 
 const app = express()
-const mongoUrl = MONGODB_URI
-
-mongoose.Promise = bluebird
-mongoose
-  .connect(mongoUrl, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    /** ready to use. The `mongoose.connect()` promise resolves to undefined. */
-  })
-  .catch((err: Error) => {
-    console.log(
-      'MongoDB connection error. Please make sure MongoDB is running. ' + err
-    )
-    process.exit(1)
-  })
 
 // Express configuration
 app.set('port', process.env.PORT || 3000)
