@@ -3,16 +3,17 @@ import compression from 'compression'
 import session from 'express-session'
 import bodyParser from 'body-parser'
 import lusca from 'lusca'
-import mongo from 'connect-mongo'
 import flash from 'express-flash'
 import path from 'path'
 import mongoose from 'mongoose'
 import passport from 'passport'
+import dotenv from 'dotenv'
 
 import movieRouter from './routers/movie'
 import apiErrorHandler from './middlewares/apiErrorHandler'
 import apiContentType from './middlewares/apiContentType'
 
+dotenv.config({ path: '.env' })
 const app = express()
 
 // Express configuration

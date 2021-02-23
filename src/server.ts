@@ -5,7 +5,6 @@ import app from './app'
 import { MONGODB_URI, SESSION_SECRET } from './util/secrets'
 
 const mongoUrl = MONGODB_URI
-let server
 mongoose
   .connect(mongoUrl, {
     useNewUrlParser: true,
@@ -14,7 +13,7 @@ mongoose
   })
   .then(() => {
     // Start Express server
-    server = app.listen(app.get('port'), () => {
+    app.listen(app.get('port'), () => {
       console.log(
         '  App is running at http://localhost:%d in %s mode',
         app.get('port'),
