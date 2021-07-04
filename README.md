@@ -19,6 +19,7 @@
 Below are the steps that you need to finish in order to finish this module
 
 1. Explore the code base, start with `server.ts`
-2. Start adding routers in the routers folder according to your REST API specs that you created
-3. Separate the routers and controller, controller goes into the controller folders. Controllers only handles request and response
-4. For business logic like saving data to database, filtering, searching or updating, these are services and goes into services folder
+2. Create all the mongoose schema for your ERD
+3. Start adding routers in the routers folder according to your REST API specs that you created
+4. Separate the routers and controller, controller goes into the controller folders. Controllers only handles request and response
+5. For business logic like saving data to database, filtering, searching or updating, these are services and goes into services folder
