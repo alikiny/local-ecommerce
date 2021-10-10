@@ -7,7 +7,7 @@ export default function (req: Request, res: Response, next: NextFunction) {
     (req.method === 'POST' || req.method === 'PUT' || req.method === 'PATCH') &&
     !req.is('application/json')
   ) {
-    next(new BadRequestError())
+    next(new BadRequestError('Request body must be of type json'))
   } else {
     next()
   }
