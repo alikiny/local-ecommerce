@@ -1,33 +1,47 @@
 import Movie, { MovieDocument } from '../models/Movie'
+import { NotFoundError } from '../helpers/apiError'
 
-function create(movie: MovieDocument): Promise<MovieDocument> {
+const create = async (movie: MovieDocument): Promise<MovieDocument> => {
   return movie.save()
 }
 
-function findById(movieId: string): Promise<MovieDocument> {
-  return Movie.findById(movieId)
-    .exec() // .exec() will return a true Promise
-    .then((movie) => {
-      if (!movie) {
-        throw new Error(`Movie ${movieId} not found`)
-      }
-      return movie
-    })
+const findById = async (movieId: string): Promise<MovieDocument> => {
+  const foundMovie = await Movie.findById(movieId)
+
+  if (!foundMovie) {
+    throw new NotFoundError(`Movie ${movieId} not found`)
+  }
+
+  return foundMovie
 }
 
-function findAll(): Promise<MovieDocument[]> {
-  return Movie.find().sort({ name: 1, publishedYear: -1 }).exec() // Return a Promise
+const findAll = async (): Promise<MovieDocument[]> => {
+  return Movie.find().sort({ name: 1, publishedYear: -1 })
 }
 
-function update(
+const update = async (
   movieId: string,
   update: Partial<MovieDocument>
-): Promise<MovieDocument | null> {
-  return Movie.findByIdAndUpdate(movieId, update, { new: true }).exec()
+): Promise<MovieDocument | null> => {
+  const foundMovie = await Movie.findByIdAndUpdate(movieId, update, {
+    new: true,
+  })
+
+  if (!foundMovie) {
+    throw new NotFoundError(`Movie ${movieId} not found`)
+  }
+
+  return foundMovie
 }
 
-function deleteMovie(movieId: string): Promise<MovieDocument | null> {
-  return Movie.findByIdAndDelete(movieId).exec()
+const deleteMovie = async (movieId: string): Promise<MovieDocument | null> => {
+  const foundMovie = Movie.findByIdAndDelete(movieId)
+
+  if (!foundMovie) {
+    throw new NotFoundError(`Movie ${movieId} not found`)
+  }
+
+  return foundMovie
 }
 
 export default {

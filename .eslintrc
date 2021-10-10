@@ -10,6 +10,7 @@
     "quotes": ["error", "single"],
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/member-delimiter-style": "off",
+    "@typescript-eslint/ban-ts-ignore": "off",
     "@typescript-eslint/no-explicit-any": 0,
     "@typescript-eslint/no-inferrable-types": [
       "warn",

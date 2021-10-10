@@ -1,6 +1,6 @@
 import Movie from '../../src/models/Movie'
 import MovieService from '../../src/services/movie'
-import * as dbHelper from '../db-helper'
+import connect, { MongodHelper } from '../db-helper'
 
 const nonExistingMovieId = '5e57b77b5744fa0b461c7906'
 
@@ -16,16 +16,18 @@ async function createMovie() {
 }
 
 describe('movie service', () => {
-  beforeEach(async () => {
-    await dbHelper.connect()
+  let mongodHelper: MongodHelper
+
+  beforeAll(async () => {
+    mongodHelper = await connect()
   })
 
   afterEach(async () => {
-    await dbHelper.clearDatabase()
+    await mongodHelper.clearDatabase()
   })
 
   afterAll(async () => {
-    await dbHelper.closeDatabase()
+    await mongodHelper.closeDatabase()
   })
 
   it('should create a movie', async () => {
@@ -69,6 +71,7 @@ describe('movie service', () => {
       name: 'Shrek',
       publishedYear: 2001,
     }
+
     return MovieService.update(nonExistingMovieId, update).catch((e) => {
       expect(e.message).toMatch(`Movie ${nonExistingMovieId} not found`)
     })

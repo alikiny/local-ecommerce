@@ -1,14 +1,15 @@
-import mongoose from 'mongoose'
+import mongoose, { ConnectOptions } from 'mongoose'
 import { MongoMemoryServer } from 'mongodb-memory-server'
 
 const connect = async () => {
   const mongod = await MongoMemoryServer.create()
   const uri = mongod.getUri()
 
-  const mongooseOpts = {
+  const mongooseOpts: ConnectOptions = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
+    useCreateIndex: true,
   }
 
   await mongoose.connect(uri, mongooseOpts)

@@ -2,11 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 
 import Movie from '../models/Movie'
 import MovieService from '../services/movie'
-import {
-  NotFoundError,
-  BadRequestError,
-  InternalServerError,
-} from '../helpers/apiError'
+import { BadRequestError } from '../helpers/apiError'
 
 // POST /movies
 export const createMovie = async (
@@ -31,7 +27,7 @@ export const createMovie = async (
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', error))
     } else {
-      next(new InternalServerError('Internal Server Error', error))
+      next(error)
     }
   }
 }
@@ -48,7 +44,11 @@ export const updateMovie = async (
     const updatedMovie = await MovieService.update(movieId, update)
     res.json(updatedMovie)
   } catch (error) {
-    next(new NotFoundError('Movie not found', error))
+    if (error instanceof Error && error.name == 'ValidationError') {
+      next(new BadRequestError('Invalid Request', error))
+    } else {
+      next(error)
+    }
   }
 }
 
@@ -62,7 +62,11 @@ export const deleteMovie = async (
     await MovieService.deleteMovie(req.params.movieId)
     res.status(204).end()
   } catch (error) {
-    next(new NotFoundError('Movie not found', error))
+    if (error instanceof Error && error.name == 'ValidationError') {
+      next(new BadRequestError('Invalid Request', error))
+    } else {
+      next(error)
+    }
   }
 }
 
@@ -75,7 +79,11 @@ export const findById = async (
   try {
     res.json(await MovieService.findById(req.params.movieId))
   } catch (error) {
-    next(new NotFoundError('Movie not found', error))
+    if (error instanceof Error && error.name == 'ValidationError') {
+      next(new BadRequestError('Invalid Request', error))
+    } else {
+      next(error)
+    }
   }
 }
 
@@ -88,6 +96,10 @@ export const findAll = async (
   try {
     res.json(await MovieService.findAll())
   } catch (error) {
-    next(new NotFoundError('Movies not found', error))
+    if (error instanceof Error && error.name == 'ValidationError') {
+      next(new BadRequestError('Invalid Request', error))
+    } else {
+      next(error)
+    }
   }
 }

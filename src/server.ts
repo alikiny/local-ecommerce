@@ -2,14 +2,16 @@ import errorHandler from 'errorhandler'
 import mongoose from 'mongoose'
 
 import app from './app'
-import { MONGODB_URI, SESSION_SECRET } from './util/secrets'
+import { MONGODB_URI } from './util/secrets'
 
 const mongoUrl = MONGODB_URI
+
 mongoose
   .connect(mongoUrl, {
     useNewUrlParser: true,
-    useCreateIndex: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
   })
   .then(() => {
     // Start Express server
