@@ -2,7 +2,7 @@ import request from 'supertest'
 
 import Movie, { MovieDocument } from '../../src/models/Movie'
 import app from '../../src/app'
-import * as dbHelper from '../db-helper'
+import connect, { MongodHelper } from '../db-helper'
 
 const nonExistingMovieId = '5e57b77b5744fa0b461c7906'
 
@@ -24,16 +24,18 @@ async function createMovie(override?: Partial<MovieDocument>) {
 }
 
 describe('movie controller', () => {
-  beforeEach(async () => {
-    await dbHelper.connect()
+  let mongodHelper: MongodHelper
+
+  beforeAll(async () => {
+    mongodHelper = await connect()
   })
 
   afterEach(async () => {
-    await dbHelper.clearDatabase()
+    await mongodHelper.clearDatabase()
   })
 
   afterAll(async () => {
-    await dbHelper.closeDatabase()
+    await mongodHelper.closeDatabase()
   })
 
   it('should create a movie', async () => {

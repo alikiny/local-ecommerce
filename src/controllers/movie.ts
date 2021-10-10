@@ -28,7 +28,7 @@ export const createMovie = async (
     await MovieService.create(movie)
     res.json(movie)
   } catch (error) {
-    if (error.name === 'ValidationError') {
+    if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', error))
     } else {
       next(new InternalServerError('Internal Server Error', error))
