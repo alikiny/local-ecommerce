@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 
 import app from './app'
 import { MONGODB_URI } from './util/secrets'
+import logger from './util/logger'
 
 const mongoUrl = MONGODB_URI
 
@@ -12,6 +13,9 @@ mongoose
     useUnifiedTopology: true,
     useFindAndModify: false,
     useCreateIndex: true,
+  })
+  .then(() => {
+    logger.info('Connected to MongoDB')
   })
   .catch((err: Error) => {
     console.log(
