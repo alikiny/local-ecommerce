@@ -1,5 +1,7 @@
 # Fullstack-Typescript-Project
 
+First choose the project topic. The topics are from REST API lecture.
+
 ## Prerequisites
 
 1. Install mongodb
