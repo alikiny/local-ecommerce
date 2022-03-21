@@ -15,7 +15,7 @@ mongoose
     useCreateIndex: true,
   })
   .then(() => {
-    logger.info('Connected to MongoDB')
+    logger.info('Successfully connected to MongoDB')
   })
   .catch((err: Error) => {
     console.log(
