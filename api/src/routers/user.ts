@@ -1,8 +1,10 @@
 import express from 'express';
-import { createUser } from '../controllers/user';
+import { createUser, findUserById , updateUser} from '../controllers/user';
 const router = express.Router()
 
-router.post('/register', createUser)
+router.post('/sign-up', createUser)
+router.get('/:userId', findUserById )
+router.put('/:userId', updateUser)
 
 
 export default router;

@@ -1,15 +1,18 @@
 import { Request, Response, NextFunction } from 'express'
 import User from '../models/User'
 import UserService from '../services/user'
-import { BadRequestError } from '../helpers/apiError'
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken')
-const config = require('config')
+import { BadRequestError, DuplicateEntityError } from '../helpers/apiError'
+import bcrypt from 'bcryptjs'
+import { Error } from 'mongoose'
+// import jwt from 'jsonwebtoken'
+// import config from 'config'
+// const jwtKey = "my_secret_key"
+// const jwtExpirySeconds = 300
 
 // POST 
 //@route api/v1/user
-//@desc register user route
-//@access Public
+//@desc sign-up route
+//@ access Public
 
 export const createUser = async (
     req: Request,
@@ -17,27 +20,16 @@ export const createUser = async (
     next: NextFunction
     ) => {
         try {
-            // Get user input
-            const {firstName, lastName, email, password} = req.body;
+            // destructure req.body object
+            const {firstName, lastName, email, password, profile} = req.body;
 
-            // Validate user input
-            if(!(firstName && lastName && email && password )) {
-            //   next(new Error("All inputs are required"))  
-             res.status(400).send("All inputs are required")
-            }
-
-            // Check if user already exist
-            console.log(email)
-            const oldUser = await User.findOne({email});
-
-            
-            // check if user exist
-            if(oldUser) {
-                // next(new Error('User Already Exist. Please Login!'))
-                return res.status(409).send('User Already Exist. Please Login!');
-            } 
-
-            // Encrypt password
+            // 1)) check if user exist
+            const userExists = await User.findOne({email: email});
+            if(userExists) {
+              return  next(new DuplicateEntityError("email already exist. Please login!"))
+                }
+                
+            // 2)) Encrypt password
             const salt = await bcrypt.genSalt(10);
             const encryptedPassword = await bcrypt.hash(password, salt);
 
@@ -49,50 +41,65 @@ export const createUser = async (
                 firstName, 
                 lastName, 
                 email, 
-                password: encryptedPassword, 
+                profile, 
+                password: encryptedPassword,
                 registeredDate: date})
 
             // Save into database 
-            await UserService.create(user)
+           await UserService.create(user)
+           res.status(201).json(user)
 
-           // res.json(user)
-            // return jsonwebtoken
-            const payload = {user_id: user._id, email}
-            const token = jwt.sign(
-                payload, 
-                process.env.JWT_SECRET, 
-                {expireIn: 360000},
-            )
-            console.log(token)
-            // save user token
-            user.token = token
-            // return new user
-            res.status(201).json(user)
-         
+           //Create Token
+            // const token = jwt.sign(
+            //     {user_id: user._id, email},
+            //     jwtKey,
+            //     {expiresIn: process.env.JWT_EXPIRES_IN})
+
+            // console.log(token)
+            // // save user token
+            // user.token = token
+
             } catch (error) {
-
                 if (error instanceof Error && error.name == 'ValidationError') {
                     next(new BadRequestError('Invalid Request', error))
+
                 } else {
                     next(error)
                 } 
             }
 }
-// PUT /users/:userId
-// export const updateUser = async(req: Request,
-//     res: Response,
-//     next: NextFunction) => {
-//         try {
-//             const update = req.body
-//             const userId = req.params.userId
-//             const updateUser = await UserService.update(userId, update)
-//             res.json(updateUser)
+
+export const findUserById = async (req: Request,
+    res: Response,
+    next: NextFunction)=>{
+        try {
+            res.json(await UserService.findOne(req.params.userId))
             
-//         } catch (error) {
-//             if (error instanceof Error && error.name == 'ValidationError') {
-//                 next(new BadRequestError('Invalid Request', error))
-//               } else {
-//                 next(error)
-//               }   
-//         }
-//     }
+        } catch (error) {
+            if (error instanceof Error && error.name == 'ValidationError') {
+                next(new BadRequestError('Invalid Request', error))
+
+            } else {
+                next(error)
+            } 
+        }
+    }
+// PUT /users/:userId
+export const updateUser = async(
+    req: Request,
+    res: Response,
+    next: NextFunction) => {
+        try {
+            const update = req.body
+            const userId = req.params.userId
+            const updateUser = await UserService.update(userId, update)
+            res.json(updateUser)
+            
+        } catch (error) {
+            if (error instanceof Error && error.name == 'ValidationError') {
+                next(new BadRequestError('Invalid Request', error))
+              } else {
+                next(error)
+              }   
+        }
+    }

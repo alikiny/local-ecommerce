@@ -1,6 +1,7 @@
 import mongoose, {Document} from 'mongoose'
 
 export type ProfileDocuments = Document & {
+_id: string,
 user: string
 city: string
 postal: string
@@ -15,19 +16,19 @@ const profileSchema = new mongoose.Schema({
     },
     city: {
         type: String,
-        required: true
+        
     },
     postal: {
         type: String,
-        required: true
+        
     },
     address: {
         type: String,
-        required: true
+        
     },
     phone: {
         type: String,
-        required: true
+        
     }, 
 })
-export default mongoose.model('Profile', profileSchema)
+export default mongoose.model<ProfileDocuments>('Profile', profileSchema)

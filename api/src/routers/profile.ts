@@ -1,11 +1,11 @@
 import express from 'express';
-import { currentUserProfile} from '../controllers/profile';
+import { currentUserProfile, createProfile, findAllProfile, findProfileById} from '../controllers/profile';
 const router = express.Router()
 
 
 router.get('/me', currentUserProfile)
-router.post('/', )
-router.get('/', )
-router.put('/:id')
+router.post('/', createProfile )
+router.get('/', findAllProfile)
+router.get('/:profileId', findProfileById)
 
 export default router;

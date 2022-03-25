@@ -8,6 +8,12 @@ export default class ApiError extends Error {
   }
 }
 
+export class DuplicateEntityError extends ApiError {
+  constructor(readonly message: string = 'Duplicate Entity!', source?: Error | any) {
+    super(409, message, source)
+  }
+}
+
 export class NotFoundError extends ApiError {
   constructor(readonly message: string = 'Not Found', source?: Error | any) {
     super(404, message, source)

@@ -14,6 +14,8 @@ if (fs.existsSync('.env')) {
 export const ENVIRONMENT = process.env.NODE_ENV
 const prod = ENVIRONMENT === 'production' // Anything else is treated as 'dev'
 
+
+export const GOOGLE_CLIENT_ID = process.env['GOOGLE_CLIENT_ID'] as string
 export const JWT_SECRET = process.env['JWT_SECRET'] as string
 export const MONGODB_URI = (
   prod ? process.env['MONGODB_URI'] : process.env['MONGODB_URI_LOCAL']

@@ -1,0 +1,15 @@
+{
+    "product": [
+    {
+        "name": "string",
+        "SKU": "string",
+        "image": "string",
+        "price": "number",
+        "size": "string",
+        "sex": "string",
+        "color":"string[]",
+        "category": "string"
+},
+{}
+]
+}
