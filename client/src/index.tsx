@@ -1,13 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios'
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// ite respond with request and response
+axios.interceptors.request.use((request)=> {
+  const token = localStorage.getItem('access_token')
+  // check the token exist in local storage
+  if(token) {
+    request.headers = {Authorization: `Bearer ${token}`
+  }}
+
+  return request
+})
+axios.defaults.baseURL = 'http://localhost:5000/api/v1'
+
 ReactDOM.render(
-  <React.StrictMode>
+ 
     <App />
-  </React.StrictMode>,
+  ,
   document.getElementById('root')
 );
 
