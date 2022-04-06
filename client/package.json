@@ -3,6 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11.8.1",
+    "@hookform/resolvers": "^2.8.8",
+    "@mui/icons-material": "^5.5.1",
+    "@mui/material": "^5.5.2",
+    "@mui/styled-engine-sc": "^5.5.2",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
@@ -14,9 +20,18 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-google-login": "^5.2.2",
+    "react-hook-form": "^7.29.0",
+    "react-redux": "^7.2.6",
+    "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
+    "redux": "^4.1.2",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.4.1",
+    "styled-components": "^5.3.5",
+    "thunk": "^0.0.1",
     "typescript": "^4.6.2",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -41,5 +56,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/styled-components": "^5.1.24"
   }
 }

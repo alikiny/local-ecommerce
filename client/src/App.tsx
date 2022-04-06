@@ -1,31 +1,42 @@
-import React from 'react';
-import axios from 'axios'
+import React, {useEffect} from 'react';
+import { useDispatch} from 'react-redux';
+import {Routes, Route} from 'react-router-dom'
+
+import Home from './pages/home/Home'
+import ProfilePage from './pages/profile/ProfilePage';
+import OrderPage from './pages/order/OrderPage';
+
+import NavBar from './components/nav/NavBar'
+import GoogleLogIn from './components/GoogleLogIn';
+
+import { fetchProducts } from './redux/products/action';
 
 import './App.css';
-import GoogleLogin from 'react-google-login'
-function App() {
+import CartPage from './pages/cart/CartPage';
 
-  const responseGoogle = async(response: any) =>{
-    console.log(response);
-    const tokenId = response?.tokenId
-    const res = await axios.post('/user/google-login', {id_token : tokenId})
-    
-  const {user, token} = res.data 
-localStorage.setItem('access_token', token, )
-console.log(user)
-}
 
-axios.get('/product')
+function App()  {
+const dispatch = useDispatch();
+
+
+useEffect(()=>{
+  dispatch(fetchProducts())
+}, [dispatch])
 
   return (
     <div className="App">
-     <GoogleLogin
-     clientId='476465246963-7ndvbj6rjgsimcmi3hb6liidqfcmuqgs.apps.googleusercontent.com'
-     buttonText='Login'
-     onSuccess={responseGoogle}
-     onFailure={responseGoogle}
-     ></GoogleLogin>
+     
+    <NavBar />
+    <Routes>
+      <Route path= '/' element={<Home />}/>
+      <Route path= '/cart' element={<CartPage />}/>
+      <Route path= '/profile' element={<ProfilePage />}/>  
+      <Route path= '/profile/:id' element={<OrderPage />}/>  
+      <Route path= '/google-login' element={<GoogleLogIn />}/>
+
+    </Routes>
     </div>
+    
   );
 }
 
