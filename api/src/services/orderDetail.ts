@@ -6,7 +6,7 @@ return order.save()
 }
 
 const findOne = async (orderId: string): Promise<OrderDetailDocuments | null> => {
-const foundOrder = OrderDetail.findById(orderId).populate({path: "product", populate:{path:"color category"}})
+const foundOrder = OrderDetail.findById(orderId).populate({path: "product", populate:{path:"color category"}}).populate("user")
 
 if(!foundOrder) {
     throw new NotFoundError(`Order ${orderId} not found`)

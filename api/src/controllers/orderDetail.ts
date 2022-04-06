@@ -2,17 +2,26 @@ import { Request, Response, NextFunction } from 'express'
 import OrderDetailService from '../services/orderDetail'
 import OrderDetail from '../models/OrderDetail'
 import { BadRequestError} from '../helpers/apiError'
+import User from '../models/User'
 
 export const createOrderDetail = async ( 
     req: Request,
     res: Response,
     next: NextFunction)=> {
         try {
-            console.log(req.body)
+        // console.log(req.body)
         const {product, user} = req.body
         const orderDetail = new OrderDetail({product, user})    
-        await OrderDetailService.create(orderDetail)
-        res.json(orderDetail)
+        const result = await OrderDetailService.create(orderDetail)
+        
+        if(result._id) {
+            await User.updateOne(
+                {_id: user},  
+                {$push: {order: result._id}})
+        }
+        res.json("success")
+        
+
         } catch (error) {
             if (error instanceof Error && error.name == 'ValidationError') {
                 next(new BadRequestError('Invalid Request', error))

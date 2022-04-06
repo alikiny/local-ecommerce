@@ -6,7 +6,7 @@ const create = async (product: ProductDocuments): Promise<ProductDocuments> => {
   }
 
 const findAll = async (): Promise<ProductDocuments[]> => {
-    return Product.find();
+    return Product.find().populate("category color");
   }
 
 const findOne = async (productId: string): Promise<ProductDocuments | null> => {
@@ -19,6 +19,7 @@ const findOne = async (productId: string): Promise<ProductDocuments | null> => {
         return foundProduct;
   }
 
+  
 const deleteProduct = async (productId: string): Promise<ProductDocuments | null> => {
     const foundProduct =  Product.findByIdAndDelete(productId)
 

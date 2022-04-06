@@ -7,11 +7,11 @@ export type UserDocuments = Document & {
     lastName: string
     email: string
     password: string
-    confirmPassword: string
     registeredDate: Date
     token: string
-    profile: string 
-    order: string
+    profile?: {address: string, phone: string} 
+    order: string[]
+    image: string
 }
 // User model entity
 const userSchema = new mongoose.Schema({
@@ -31,18 +31,20 @@ const userSchema = new mongoose.Schema({
         validate: [validator.isEmail, 'Please provide a valid email']
     },
     password: {
-        type: String,
-        required: [true, 'Please provide a password'],
-        minlength: 8,
-        select: false
+        type: String
+        // required: [false, 'Please provide a password'],
+        // minlength: 8,
+        // select: false
     },
+    image: {type: String},
     registeredDate: {
         type: Date
     },
-    profile: {type: mongoose.Schema.Types.ObjectId,
-        ref: 'Profile'},
-    order: {type: mongoose.Schema.Types.ObjectId,
-        ref: 'Order'}
+    profile: {
+        address: {type: String},
+        phone: {type: String}
+},
+    order: {type: [{type: mongoose.Schema.Types.ObjectId, ref: 'OrderDetail'}]}
 })
 
 export default mongoose.model<UserDocuments>('User', userSchema)

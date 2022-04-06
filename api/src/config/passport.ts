@@ -1,31 +1,18 @@
-import passport from 'passport'
-
-import passportLocal, { Strategy } from 'passport-local'
-
 // declearation merging
 import GoogleIdTokenStrategy from 'passport-google-id-token'
 import JwtStrategy from 'passport-jwt'
-import ExtractJwt from 'passport-jwt'
 import { GOOGLE_CLIENT_ID, JWT_SECRET } from '../util/secrets'
+import UserService from '../services/user'
 
-import { Request, Response, NextFunction } from 'express'
-
-//const LocalStrategy = passportLocal.Strategy
 
 export const googleStrategy = new GoogleIdTokenStrategy(
   {
     clientId: GOOGLE_CLIENT_ID,
   },
-  (parseToken: any, googleId: any, done: any) => {
-    console.log('parse token', parseToken)
-    console.log('google id', googleId)
-    // const user = await new User.findorCreate(parsedToken)
+ async (parseToken: any, googleId: any, done: any) =>{
     // check user exist in database
-    const user = {
-      firstName: 'Rajeev',
-      lastName: 'sah',
-      email: 'rajeev@user.com',
-    }
+    const user = await UserService.findOrCreate(parseToken)
+  
     return done(null, user)
   }
 )
@@ -35,8 +22,10 @@ export const jwtStrategy = new JwtStrategy.Strategy(
     secretOrKey: JWT_SECRET,
     jwtFromRequest: JwtStrategy.ExtractJwt.fromAuthHeaderAsBearerToken(),
   },
-  (payload: any, done: any) => {
-    console.log('payload: ', payload, 'done: ', done)
-    done(null, {})
+  async (payload: any, done: any) => {
+   const email = payload.email
+   const user = await UserService.findByEmail(email)
+   
+    done(null, user)
   }
 )

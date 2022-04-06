@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import User from '../models/User'
+import User, { UserDocuments } from '../models/User'
 import UserService from '../services/user'
 import { BadRequestError, DuplicateEntityError } from '../helpers/apiError'
 import bcrypt from 'bcryptjs'
@@ -49,16 +49,7 @@ export const createUser = async (
     // Save into database
     await UserService.create(user)
     res.status(201).json(user)
-
-    //Create Token
-    // const token = jwt.sign(
-    //     {user_id: user._id, email},
-    //     jwtKey,
-    //     {expiresIn: process.env.JWT_EXPIRES_IN})
-
-    // console.log(token)
-    // // save user token
-    // user.token = token
+    
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', error))
@@ -103,19 +94,39 @@ export const updateUser = async (
   }
 }
 
+export const updateAuthenticatedUser = async(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+try {
+  console.log("updateAuthenticateUser:", req.body)
+  const updated = await UserService.updateAuthenticated(req.body)
+  res.json(updated)
+  
+} catch (error) {
+  if (error instanceof Error && error.name == 'ValidationError') {
+    next(new BadRequestError('Invalid Request', error))
+  } else {
+    next(error)
+  }
+}
+}
+
 export const googleLogin = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const user = req.user as any
+    const user = req.user as UserDocuments
+    
     const token = jwt.sign({ email: user?.email }, JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRES_IN,
     })
 
     res.json({ user, token })
-    res.send('success')
+    
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', error))
@@ -123,4 +134,21 @@ export const googleLogin = async (
       next(error)
     }
   }
+}
+
+export const getProfile = async(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+try {
+  console.log("getprofile", req.user )
+  res.json(await UserService.findProfile((req.user as UserDocuments)._id))
+} catch (error) {
+  if (error instanceof Error && error.name == 'ValidationError') {
+    next(new BadRequestError('Invalid Request', error))
+  } else {
+    next(error)
+  }
+}
 }

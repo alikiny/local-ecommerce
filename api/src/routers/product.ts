@@ -9,11 +9,12 @@ import {
 } from '../controllers/product'
 const router = express.Router()
 
-router.get(
-  '/',
-  passport.authenticate('jwt', { session: false }),
-  findAllProducts
-)
+// router.get(
+//   '/',
+//   passport.authenticate('jwt', { session: false }),
+//   findAllProducts
+// )
+router.get('/', findAllProducts)
 router.get('/:productId', findProductById)
 router.put('/:productId', updateProduct)
 router.delete('/:productId', deleteProduct)
