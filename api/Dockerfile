@@ -3,8 +3,8 @@ FROM node:alpine
 WORKDIR /api
 
 COPY package*.json ./
-RUN npm install
+RUN npm install --silent; npm install react-scripts --silent
 
 COPY . .
 
-CMD [\"npm\", \"run\", \"start:dev\"]
+CMD ["npm", "start"]
