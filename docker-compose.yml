@@ -1,0 +1,41 @@
+version: "3"
+services:
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+     MONGO_INITDB_ROOT_USERNAME: root
+     MONGO_INITDB_ROOT_PASSWORD: root
+     MONGO_REPLICA_HOST: "e-commerce"
+     MONGO_REPLICA_PORT: 27017
+    ports:
+      - '27017:27017'
+
+  backend:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    depends_on:
+      - mongo
+    ports:
+      - 5000:5000    
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+
+volumes:
+   mongo-data:
+    driver: local
+
+networks:
+  app-network:
+    driver: bridge
+
+
+
+
+
