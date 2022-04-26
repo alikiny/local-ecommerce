@@ -4,15 +4,14 @@ import JwtStrategy from 'passport-jwt'
 import { GOOGLE_CLIENT_ID, JWT_SECRET } from '../util/secrets'
 import UserService from '../services/user'
 
-
 export const googleStrategy = new GoogleIdTokenStrategy(
   {
     clientId: GOOGLE_CLIENT_ID,
   },
- async (parseToken: any, googleId: any, done: any) =>{
+  async (parseToken: any, __googleId: any, done: any) => {
     // check user exist in database
     const user = await UserService.findOrCreate(parseToken)
-  
+
     return done(null, user)
   }
 )
@@ -23,9 +22,9 @@ export const jwtStrategy = new JwtStrategy.Strategy(
     jwtFromRequest: JwtStrategy.ExtractJwt.fromAuthHeaderAsBearerToken(),
   },
   async (payload: any, done: any) => {
-   const email = payload.email
-   const user = await UserService.findByEmail(email)
-   
+    const email = payload.email
+    const user = await UserService.findByEmail(email)
+
     done(null, user)
   }
 )

@@ -2,9 +2,9 @@ FROM node:alpine
 
 WORKDIR /api
 
-COPY package*.json ./
-RUN npm install --silent; npm install react-scripts --silent
+COPY ["package*.json" , "."]
+RUN npm install --silent
 
 COPY . .
 
-CMD ["npm", "start"]
+CMD ["node", "dist/server.js"]
