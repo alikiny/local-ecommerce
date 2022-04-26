@@ -13,9 +13,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    defaults:
-      run: 
-        working-directory: ./api/
+    
     steps:
 
     - uses: actions/checkout@v3
@@ -25,6 +23,7 @@ jobs:
       with:
         node-version: '16.x'
         cache: 'npm'
+        cache-dependency-path: './api/package-lock.json'
     - run: npm ci
     - run: npm run build 
     - run: echo build complete!
