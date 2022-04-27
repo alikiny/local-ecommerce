@@ -13,20 +13,18 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    # defaults:
-    #   run:
-    #     working-directory: ./api
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Run a one-line script
-    - run: echo Hello, Rajeev!
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16.x'
-        cache: 'npm'
-        cache-dependency-path: api/package-lock.json
-    - run: npm ci
-    - run: npm run build 
-    - run: echo build complete!
+      - name: test1
+      - run: echo Hello, Rajeev!
+    # - uses: actions/checkout@v3
+    # - name: Run a one-line script
+    # - run: echo Hello, Rajeev!
+    #   uses: actions/setup-node@v3
+    #   with:
+    #     node-version: '16.x'
+    #     cache: 'npm'
+    #     cache-dependency-path: api/package-lock.json
+    # - run: npm ci
+    # - run: npm run build 
+    # - run: echo build complete!
 
