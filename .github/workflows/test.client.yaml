@@ -14,8 +14,7 @@ jobs:
         working-directory:  ./client
     steps:
       - name: check out action
-        uses: actions/checkout@v3
-        
+        uses: actions/checkout@v3       
       - name: Setup node
         uses: actions/setup-node@v3
         with:
@@ -28,10 +27,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - name: install
-
         run: npm ci
       - name: Build  
-
         run: npm run build
       - name: Deploy
         uses: netlify/actions/cli@master
