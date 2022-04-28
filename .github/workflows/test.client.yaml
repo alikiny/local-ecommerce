@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory:  ./client
+        working-directory:  client
     steps:
       - name: check out action
         uses: actions/checkout@v3       
