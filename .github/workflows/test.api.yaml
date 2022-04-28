@@ -1,4 +1,4 @@
-name: client
+name: test.api
 on:
   push:
     branches:
@@ -9,14 +9,19 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      working-directory:  ./api
     steps:
       - name: check out action
         uses: actions/checkout@v3
+        
       - name: Setup node
         uses: actions/setup-node@v3
         with:
           node-version: "16.x"
       - name: build
+        working-directory: ${{env.working-directory}}
         run: npm ci
-      - run: 
+      - working-directory: ${{env.working-directory}}
+        run: 
           npm run build
