@@ -15,10 +15,8 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version}}
+          node-version: "16.x"
       - name: build
-        run: |
-          npm i
-          cd client
-          npm i
+        run: npm ci
+      - run: 
           npm run build
