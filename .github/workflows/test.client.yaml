@@ -36,6 +36,7 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         with:
+          path: ./client
           args: deploy --dir=build --prod
       - name: End
         run: echo "Ended task."
