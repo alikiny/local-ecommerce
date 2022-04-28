@@ -25,3 +25,12 @@ jobs:
       - working-directory: ${{env.working-directory}}
         run: 
           npm run build
+      - name: Deploy
+        uses: netlify/actions/cli@master
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        with:
+          args: deploy --dir=build --prod
+      - name: End
+        run: echo "Ended task."
