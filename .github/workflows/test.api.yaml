@@ -9,19 +9,43 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      working-directory:  ./api
+    defaults:
+      run:
+        working-directory:  api
     steps:
-      - name: check out action
+      # checks-out git repo and access it
+      - name: Checking out
         uses: actions/checkout@v3
-        
-      - name: Setup node
+      - name: Viewing folder structure after checks-out
+        run: |
+          echo viewing.....
+          ls
+      - name: set up node
         uses: actions/setup-node@v3
         with:
           node-version: "16.x"
-      - name: build
+      - name: Caching
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{runner.os}}-node-${{hashFiles('**/package-lock.json')}}
+          restore-keys: |
+            ${{runner.os}}-node-
+      - name: Building
         working-directory: ${{env.working-directory}}
         run: npm ci
       - working-directory: ${{env.working-directory}}
         run: 
           npm run build
+      - name: view folder
+        run:  |
+          echo viewing.....
+          ls
+      - name: Check out repository
+        uses: actions/checkout@v3
+      - name: Deploy to heroku
+        uses: actions/heroku-deploy@v3
+        with:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+          HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
