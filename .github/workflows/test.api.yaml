@@ -44,7 +44,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v3
       - name: Deploy to heroku
-        uses: akhileshns/heroku-deploy@v3
+        uses: akhileshns/heroku-deploy@v3.12.12
         with:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
