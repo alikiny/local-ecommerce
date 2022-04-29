@@ -32,10 +32,8 @@ jobs:
           restore-keys: |
             ${{runner.os}}-node-
       - name: Building
-        working-directory: ${{env.working-directory}}
         run: npm ci
-      - working-directory: ${{env.working-directory}}
-        run: 
+      - run: 
           npm run build
       - name: view folder
         run:  |
