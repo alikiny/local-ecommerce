@@ -17,7 +17,8 @@ axios.interceptors.request.use((request)=> {
 
   return request
 })
-axios.defaults.baseURL = 'http://localhost:5000/api/v1'
+
+axios.defaults.baseURL = process.env.REACT_APP_BACKEND
 
 ReactDOM.render(
   <Provider store = {storeFactory}>
