@@ -49,7 +49,6 @@ export const createUser = async (
     // Save into database
     await UserService.create(user)
     res.status(201).json(user)
-    
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', error))
@@ -94,39 +93,15 @@ export const updateUser = async (
   }
 }
 
-export const updateAuthenticatedUser = async(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-try {
-  console.log("updateAuthenticateUser:", req.body)
-  const updated = await UserService.updateAuthenticated(req.body)
-  res.json(updated)
-  
-} catch (error) {
-  if (error instanceof Error && error.name == 'ValidationError') {
-    next(new BadRequestError('Invalid Request', error))
-  } else {
-    next(error)
-  }
-}
-}
-
-export const googleLogin = async (
+export const updateAuthenticatedUser = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const user = req.user as UserDocuments
-    
-    const token = jwt.sign({ email: user?.email }, JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRES_IN,
-    })
-
-    res.json({ user, token })
-    
+    console.log('updateAuthenticateUser:', req.body)
+    const updated = await UserService.updateAuthenticated(req.body)
+    res.json(updated)
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', error))
@@ -136,19 +111,41 @@ export const googleLogin = async (
   }
 }
 
-export const getProfile = async(
+export const googleLogin = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-try {
-  console.log("getprofile", req.user )
-  res.json(await UserService.findProfile((req.user as UserDocuments)._id))
-} catch (error) {
-  if (error instanceof Error && error.name == 'ValidationError') {
-    next(new BadRequestError('Invalid Request', error))
-  } else {
-    next(error)
+  try {
+    const user = req.user ? (req.user as UserDocuments) : null
+
+    const token = jwt.sign({ email: user?.email }, JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRES_IN,
+    })
+
+    res.json({ user, token })
+  } catch (error) {
+    if (error instanceof Error && error.name == 'ValidationError') {
+      next(new BadRequestError('Invalid Request', error))
+    } else {
+      next(error)
+    }
   }
 }
+
+export const getProfile = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    console.log('getprofile', req.user)
+    res.json(await UserService.findProfile((req.user as UserDocuments)._id))
+  } catch (error) {
+    if (error instanceof Error && error.name == 'ValidationError') {
+      next(new BadRequestError('Invalid Request', error))
+    } else {
+      next(error)
+    }
+  }
 }
