@@ -33,7 +33,7 @@ jobs:
             ${{runner.os}}-node-
       - name: Building
         run: npm ci
-      - name: build
+      - name: building
         run: 
           npm run build
       - name: view folder
