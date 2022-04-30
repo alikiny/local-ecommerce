@@ -25,11 +25,8 @@ const ProductCard = () => {
 
     const filteredProduct = products.filter((product)=>  {
         if(category === '') {
-            console.log("1")
             return product
         }else {
-            console.log("2", product.category.category)
-
             return product.category.category.includes(category)
         }
     } )
