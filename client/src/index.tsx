@@ -21,7 +21,7 @@ axios.interceptors.request.use((request)=> {
 axios.defaults.baseURL = process.env.REACT_APP_BACKEND
 
 
-console.log(process.env.REACT_APP_BACKEND);
+
 
 ReactDOM.render(
   <Provider store = {storeFactory}>
