@@ -18,8 +18,11 @@ axios.interceptors.request.use((request)=> {
   return request
 })
 
-axios.defaults.baseURL = process.env.REACT_APP_BACKEND
-console.log("base url", axios.defaults.baseURL)
+// axios.defaults.baseURL = process.env.REACT_APP_BACKEND
+// console.log("base url", axios.defaults.baseURL)
+
+axios.defaults.baseURL = process.env.NODE_ENV === "production"
+? "https://nike-shoe-api.herokuapp.com/api/v1"  : "http://localhost:5000/api/v1"
 
 ReactDOM.render(
   <Provider store = {storeFactory}>
