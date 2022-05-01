@@ -16,7 +16,7 @@ jobs:
       - name: check out action
         uses: actions/checkout@v3
         env:  
-          REACT_APP_BACKEND: ${{secrets.REACT_APP_BACKEND}}      
+          REACT_APP_BACKEND: ${{secrets.BACKEND}}      
       - name: Setup node
         uses: actions/setup-node@v3
         with:
