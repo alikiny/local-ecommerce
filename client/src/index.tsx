@@ -20,7 +20,7 @@ axios.interceptors.request.use((request)=> {
 
 axios.defaults.baseURL = process.env.REACT_APP_BACKEND
 
-console.log("env variable:", process.env.REACT_APP_BACKEND)
+console.log("env variables:", process.env.REACT_APP_BACKEND)
 
 
 ReactDOM.render(
