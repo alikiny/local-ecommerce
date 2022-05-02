@@ -17,11 +17,8 @@ axios.interceptors.request.use((request)=> {
 
   return request
 })
-
+// get api url form env file.
 axios.defaults.baseURL = process.env.REACT_APP_BACKEND
-
-console.log("env variables:", process.env.REACT_APP_BACKEND)
-
 
 ReactDOM.render(
   <Provider store = {storeFactory}>
