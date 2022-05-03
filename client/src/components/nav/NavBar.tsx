@@ -41,16 +41,16 @@ const cartItems = useSelector((state: InitialState)=> state.cart.cart.length)
           <ul >
             {!checkAuthentication ? 
             <GoogleLogin /> : 
-          <button onClick={handleLogout}>Log-Out</button>
+            <button onClick={handleLogout}>Log-Out</button>
             }
             {checkAuthentication ? <Link to='/profile'>Profile</Link>: null}
             
             <Badge badgeContent={cartItems} color="secondary">
-            <Link to="/cart">
-              <ShoppingCartIcon />
-            </Link>
-          </Badge>
-            <span></span>
+              <Link to="/cart">
+                <ShoppingCartIcon />
+              </Link>
+            </Badge>
+            
           </ul>
         </div>
       </div>
