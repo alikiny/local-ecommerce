@@ -32,10 +32,13 @@ passport.use(googleStrategy)
 passport.use(jwtStrategy)
 
 // Set up routers
+app.get('/abc', (req, res) => {
+  res.send('hello world')
+})
 app.use('/api/v1/movies', movieRouter)
 app.use('/api/v1/user', userRouter)
 app.use('/api/v1/product', productRouter)
-app.use('/api/v1/category', categoryRouter) 
+app.use('/api/v1/category', categoryRouter)
 app.use('/api/v1/color', colorRouter)
 app.use('/api/v1/profile', profileRouter)
 app.use('/api/v1/order', orderRouter)
