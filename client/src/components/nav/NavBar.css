@@ -4,6 +4,9 @@ a {
 li {
   list-style: none;
 }
+p {
+  cursor: pointer;
+}
 
 .main-nav {
   width: 100%;

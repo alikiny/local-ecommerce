@@ -16,6 +16,7 @@ import GoogleLogIn from './components/GoogleLogIn';
 import { fetchProducts } from './redux/products/action';
 
 import './App.css';
+import Dashboard from './pages/dashboard/Dashboard';
 
 
 function App()  {
@@ -32,15 +33,14 @@ useEffect(()=>{
     <NavBar />
     <Routes>
       <Route path= '/' element={<Home />}/>
-       {/* <PrivateRoute path='/login' exact >
-          <ProfilePage />
-      </PrivateRoute>  */}
       <Route path= '/login' element={<LogInPage />}/>
       <Route path= '/signup' element={<SignUpPage />}/>
       <Route path= '/cart' element={<CartPage />}/>
       <Route path= '/profile' element={<ProfilePage />}/>  
       <Route path= '/profile/:id' element={<OrderPage />}/>  
       <Route path= '/google-login' element={<GoogleLogIn />}/>
+
+      <Route path="/admin/dashboard"  element={<PrivateRoute ><Dashboard /></PrivateRoute>}/>
 
     </Routes>
     </div>

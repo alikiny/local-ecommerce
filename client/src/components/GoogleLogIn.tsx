@@ -1,14 +1,15 @@
 import React from 'react';
 import {useDispatch} from 'react-redux'
+import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import GoogleLogin from 'react-google-login'
 import { loginSuccess } from '../redux/auth/action';
 
 const GoogleLogIn = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const responseGoogle = async(response: any) =>{
-        console.log(response);
         const tokenId = response?.tokenId
         const res = await axios.post('/user/google-login', {id_token : tokenId})
         
@@ -17,6 +18,7 @@ const GoogleLogIn = () => {
             localStorage.setItem('access_token', token)
             localStorage.setItem('auth', 'true' )
             dispatch(loginSuccess(user))
+            navigate('/')
 
         } else {
             alert('Login unSuccess')

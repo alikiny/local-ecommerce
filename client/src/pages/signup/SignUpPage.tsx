@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom'
+import GoogleLogIn from '../../components/GoogleLogIn';
 
 import './SignUpPage.css'
 
@@ -18,9 +19,12 @@ const SignUpPage = () => {
 
     return (
         <div className='content-container'>
-             <h1>Sign Up</h1>
+             <h1>Create your accoount</h1>
             {errorMessage && 
                 <div className="fail">{errorMessage}</div>}
+             <hr />
+             <GoogleLogIn />
+             <hr className='hr-text' data-content="OR" />
             <input 
                 value={emailValue}
                 onChange={e => setEmailValue(e.target.value)} 

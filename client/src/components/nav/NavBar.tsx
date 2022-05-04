@@ -14,6 +14,7 @@ import Badge from '@mui/material/Badge';
 const NavBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const checkAdmin = false;
     
   const checkAuthentication = useSelector((state: InitialState)=> state.auth.isAuthenticated)
 const cartItems = useSelector((state: InitialState)=> state.cart.cart.length)
@@ -39,17 +40,21 @@ const cartItems = useSelector((state: InitialState)=> state.cart.cart.length)
         </div>
         <div className='menu-link'>
           <ul >
-            {!checkAuthentication ? 
+            {/* {!checkAuthentication ? 
             <GoogleLogin /> : 
             <button onClick={handleLogout}>Log-Out</button>
-            }
+            } */}
             {checkAuthentication ? <Link to='/profile'>Profile</Link>: null}
+            {checkAdmin ? <Link to='/admin/dashboard'>Dashboard</Link> : null}
+
             
             <Badge badgeContent={cartItems} color="secondary">
               <Link to="/cart">
                 <ShoppingCartIcon />
               </Link>
             </Badge>
+            {checkAuthentication ? <p onClick={handleLogout}>Log-Out</p> :<Link to='/login'>Log In</Link> }
+            
             
           </ul>
         </div>
