@@ -1,20 +1,41 @@
 import React, {useState} from 'react';
+import { useDispatch } from 'react-redux';
 import {useNavigate} from 'react-router-dom'
 import GoogleLogIn from '../../components/GoogleLogIn';
+import { loginSuccess } from '../../redux/auth/action';
+import axios from 'axios'
 
 import './SignUpPage.css'
 
 const SignUpPage = () => {
     const [errorMessage, setErrorMessage] = useState('')
-
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
     const [emailValue, setEmailValue] = useState('')
     const [passwordValue, setPasswordValue] = useState('')
     const [confirmPasswordValue, setConfirmPasswordValue] = useState('')
 
     const navigate = useNavigate();
+    const dispatch = useDispatch()
 
     const onSignUpClicked = async() => {
-    alert ('Log In not implemented')
+        const res = await axios.post('/user/sign-up', {
+                firstName: firstName,
+                lastName: lastName,
+                email: emailValue,
+                password: passwordValue    
+            })
+
+        const {user, token} = res.data 
+        if(user) {
+            localStorage.setItem('access_token', token)
+            localStorage.setItem('auth', 'true' )
+            dispatch(loginSuccess(user))
+            alert('Account created Success')
+            navigate('/')
+        } else {
+            alert('Account creation unSuccess')
+        }
     }
 
     return (
@@ -25,6 +46,16 @@ const SignUpPage = () => {
              <hr />
              <GoogleLogIn />
              <hr className='hr-text' data-content="OR" />
+             <input 
+                value={firstName}
+                onChange={e => setFirstName(e.target.value)} 
+                type="firstName" 
+                placeholder='First Name' />
+            <input 
+                value={lastName}
+                onChange={e => setLastName(e.target.value)} 
+                type="lastName" 
+                placeholder='Last Name' />
             <input 
                 value={emailValue}
                 onChange={e => setEmailValue(e.target.value)} 

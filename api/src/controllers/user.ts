@@ -6,6 +6,7 @@ import bcrypt from 'bcryptjs'
 import { Error } from 'mongoose'
 import jwt from 'jsonwebtoken'
 import { JWT_SECRET } from '../util/secrets'
+import { request } from 'http'
 
 // POST
 //@route api/v1/user
@@ -19,8 +20,8 @@ export const createUser = async (
 ) => {
   try {
     // destructure req.body object
-    const { firstName, lastName, email, password, profile } = req.body
-
+    const { firstName, lastName, email, password } = req.body
+    console.log('req.body', req.body)
     // 1)) check if user exist
     const userExists = await User.findOne({ email: email })
     if (userExists) {
@@ -38,17 +39,53 @@ export const createUser = async (
 
     // Create user
     const user = new User({
-      firstName,
-      lastName,
-      email,
-      profile,
-      password: encryptedPassword,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      image: '',
       registeredDate: date,
+      order: [],
+      profile: { address: '', phone: '' },
+      password: encryptedPassword,
     })
 
     // Save into database
     await UserService.create(user)
-    res.status(201).json(user)
+    const token = jwt.sign({ email: user?.email }, JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRES_IN,
+    })
+    res.status(201).json({ user, token })
+  } catch (error) {
+    if (error instanceof Error && error.name == 'ValidationError') {
+      next(new BadRequestError('Invalid Request', error))
+    } else {
+      next(error)
+    }
+  }
+}
+export const logInUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { email, password } = req.body
+    const foundUser = await UserService.findByEmail(email)
+
+    if (!foundUser) {
+      return res.status(400).json({ error: [{ msg: 'invalid Credentials' }] })
+    }
+    const isMatched = await bcrypt.compare(password, foundUser.password)
+
+    if (!isMatched) {
+      return res.status(400).json({ error: [{ msg: 'invalid Credentials' }] })
+    }
+
+    const token = jwt.sign({ email: foundUser?.email }, JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRES_IN,
+    })
+
+    res.json({ foundUser, token })
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', error))

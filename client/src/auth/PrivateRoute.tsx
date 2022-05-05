@@ -1,9 +1,12 @@
-import {Navigate, Route} from 'react-router-dom'
+import {Navigate} from 'react-router-dom'
+import {useSelector} from 'react-redux'
+import { InitialState } from '../redux/store'
 
-export const PrivateRoute = (props: any) => {
-    const user = null;
+export const PrivateRoute = ({children}: any) => {
+    
+    const checkAdmin = useSelector((state: InitialState)=> state.auth?.user?.isAdmin)
 
-    if (!user) return <Navigate to='/login' />
+    if (!checkAdmin) return <Navigate to='/login' />
 
-    return <Route {...props} />
+    return  children
 }

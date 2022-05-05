@@ -18,6 +18,7 @@ export type UserType = {
     image: string
     registeredDate: Date
     order: string[]
+    isAdmin: boolean
     profile: {address: string, phone: string}
 
 }

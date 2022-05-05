@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
+import { useDispatch } from 'react-redux';
 import {useNavigate} from 'react-router-dom'
 import GoogleLogIn from '../../components/GoogleLogIn';
+import { loginSuccess} from '../../redux/auth/action';
+import axios from 'axios'
 
 import './LogInPage.css'
 
@@ -10,9 +13,23 @@ const LogInPage = () => {
     const [passwordValue, setPasswordValue] = useState('')
 
     const navigate = useNavigate();
+    const dispatch = useDispatch()
 
     const onLoginClicked = async() => {
-    alert ('Log In not implemented')
+        const res = await axios.post('/user/sign-in', { 
+            email: emailValue,
+            password: passwordValue    
+        })
+        const {foundUser, token} = res.data 
+        if(foundUser) {
+            localStorage.setItem('access_token', token)
+            localStorage.setItem('auth', 'true' )
+            dispatch(loginSuccess(foundUser))
+            alert('Login Success')
+            navigate('/')
+        } else {
+            alert('Login unSuccess')
+        }
     }
 
     return (

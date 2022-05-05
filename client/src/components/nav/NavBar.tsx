@@ -14,10 +14,11 @@ import Badge from '@mui/material/Badge';
 const NavBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const checkAdmin = false;
+  
     
   const checkAuthentication = useSelector((state: InitialState)=> state.auth.isAuthenticated)
-const cartItems = useSelector((state: InitialState)=> state.cart.cart.length)
+  const checkAdmin = useSelector((state: InitialState)=> state.auth?.user?.isAdmin)
+  const cartItems = useSelector((state: InitialState)=> state.cart.cart.length)
 
   const handleLogout = ()=> {
     dispatch(logout())
@@ -60,11 +61,8 @@ const cartItems = useSelector((state: InitialState)=> state.cart.cart.length)
         </div>
       </div>
       {/*  hero section*/}
-      <section className='hero-section'>
-        
-        <h1>Nike Sneakers World</h1>
-      </section>
-      <hr />
+      
+      
     </>
   );
 };

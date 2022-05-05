@@ -8,6 +8,7 @@ export type UserDocuments = Document & {
   lastName: string
   email: string
   password: string
+  isAdmin?: boolean
   registeredDate: Date
   token: string
   profile?: { address: string; phone: string }
@@ -37,6 +38,7 @@ const userSchema = new mongoose.Schema({
     // minlength: 8,
     // select: false
   },
+  isAdmin: { type: Boolean, default: false },
   image: { type: String },
   registeredDate: {
     type: Date,
