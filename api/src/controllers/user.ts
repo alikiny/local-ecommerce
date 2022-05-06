@@ -94,6 +94,21 @@ export const logInUser = async (
     }
   }
 }
+export const getAllUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    res.json(await UserService.findAll())
+  } catch (error) {
+    if (error instanceof Error && error.name == 'ValidationError') {
+      next(new BadRequestError('Invalid Request', error))
+    } else {
+      next(error)
+    }
+  }
+}
 
 export const findUserById = async (
   req: Request,

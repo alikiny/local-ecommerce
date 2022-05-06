@@ -32,24 +32,18 @@ const Cart = () => {
     // before processing check out user must login
       if(!userId) {alert('Please Login to checkout products in your cart')} else {
         const response =await axios.post('/order', {product: productsId, user: userId })
-        console.log(response.data)
         alert(`you are ${response.data} checkout`)
-        localStorage.removeItem('cart')
-        
-  }
-    }
+        localStorage.removeItem('cart')  
+  }}
     
-useEffect(()=> {
+  useEffect(()=> {
+    const cartValue = localStorage.getItem('cart')
+    if(!cartValue ) {
+      setPageLoad(!pageLoad)
+    }
+  },[pageLoad])
 
-  const cartValue = localStorage.getItem('cart')
-  console.log(cartValue)
- if(!cartValue ) {
-   setPageLoad(!pageLoad)
- }
-console.log(pageLoad);
-},[pageLoad])
 
-console.log("cart: ", cart)
     return (
       <div style={{display:"flex"}}>
         <Wrapper>

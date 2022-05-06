@@ -19,7 +19,7 @@ axios.interceptors.request.use((request)=> {
 })
 // get api url form env file.
 axios.defaults.baseURL = process.env.REACT_APP_BACKEND
-console.log("hello")
+
 ReactDOM.render(
   <Provider store = {storeFactory}>
  <BrowserRouter>

@@ -6,7 +6,7 @@ export type ProductType = {
     price: number
     size: string
     sex: string
-    color:[{_id: string, color:string}]
+    color:{_id: string, color:string}[]
     category: {_id: string, category: string}
 }
 
@@ -25,4 +25,24 @@ export type UserType = {
 
 export type Error = {
     error: string   
+ }
+
+ export type Category = {
+     _id: string,
+     category: string
+ }[]
+ export type Color = {
+    _id: string,
+    color: string
+}[]
+
+ export type Inputs = {
+    name: string
+    SKU: string
+    image: string
+    price: number
+    size: string
+    sex: string
+    color: string
+    category: string
  }

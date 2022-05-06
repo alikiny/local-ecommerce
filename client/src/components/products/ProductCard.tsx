@@ -15,8 +15,6 @@ import Box from '@mui/material/Box'
 import { ProductType } from '../../types';
 import { addToCart } from '../../redux/cart/action';
 
-
-
 const ProductCard = () => {
     const dispatch = useDispatch();
     const products = useSelector((state: InitialState)=> state.products.products)

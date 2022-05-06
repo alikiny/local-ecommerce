@@ -39,10 +39,6 @@ const Profile = () => {
     const Data = useSelector((state: InitialState)=> state.auth)
     const orderList = useSelector((state:InitialState) => state.auth?.user?.order)
     const userData = Data.user;
-    
-    console.log("orderList", orderList)
-
-   
 
     const {handleSubmit, reset, control, formState: {errors}} = useForm<FormDataType>({
         defaultValues: {
@@ -67,9 +63,7 @@ const Profile = () => {
         
            try {
                const response = await axios.get('/user/profile')
-              console.log(response.data)
                 dispatch(loginSuccess(response.data))
-                console.log("response", response.data)
                 reset(response.data)
                 } catch (error) {
                     console.log("profile page error from fetch profile", error) 
@@ -200,7 +194,7 @@ const Profile = () => {
            <div style={{display: 'flex', flexDirection:'column'}}>
            <Typography variant="h6" component="h2">You Purchase order history</Typography> 
            {orderList ? orderList.map((order: any)=> {
-             console.log("order", order )
+
                return (
                        <Button variant="outlined" key={order} >
                           <Link to={`/profile/${order}`} >{order}</Link>

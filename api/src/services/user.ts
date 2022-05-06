@@ -5,6 +5,10 @@ const create = async (userDocument: UserDocuments): Promise<UserDocuments> => {
   return userDocument.save()
 }
 
+const findAll = async (): Promise<UserDocuments[]> => {
+  return User.find()
+}
+
 const findOrCreate = async (parsedToken: any) => {
   const found = await User.findOne({ email: parsedToken.payload.email })
 
@@ -79,6 +83,7 @@ const updateAuthenticated = async (update: UserDocuments) => {
 
 export default {
   create,
+  findAll,
   findOne,
   update,
   findOrCreate,

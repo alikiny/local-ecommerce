@@ -8,7 +8,7 @@ return {
 }
 }
 export const removeFromCart = (productId: string): RemoveFromCartType=> {
-    console.log("product remove:", productId)
+
 return {
     type: REMOVE_FROM_CART, 
     payload: productId  
@@ -16,7 +16,7 @@ return {
 }
 
 export const deleteProduct = (productId: string): DeleteProductType=> {
-    console.log("productId: ", productId)
+
     return {
         type: DELETE_PRODUCT, 
         payload: productId  

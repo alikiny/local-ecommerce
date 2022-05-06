@@ -14,9 +14,9 @@ type CategoryType = {
 }
 const LeftNavigation = () => {
     const dispatch = useDispatch();
-const [categories, setCategory] = useState<CategoryType[]>()
+    const [categories, setCategory] = useState<CategoryType[]>()
 
- const fetchCategory = async()=> {
+    const fetchCategory = async()=> {
         try {
             const response = await axios.get('/category')
             setCategory(response.data) 
@@ -25,20 +25,17 @@ const [categories, setCategory] = useState<CategoryType[]>()
         }
         
     }
-useEffect(()=>{
-    fetchCategory()
-}, [])
-const handleChange = (category: string) => {
-console.log(category)
-dispatch(selectcategory(category))
+    useEffect(()=>{
+        fetchCategory()
+    }, [])
 
-}
-    
+    const handleChange = (category: string) => {
+    dispatch(selectcategory(category))
+    }
     return (
         <Grid container sx={{width: "15%"}}>
             <Grid item xs={12} sx={{height:"100vh"}}>
                <Paper >
-                
                 <Typography variant="h3"  >Category</Typography>
               
                     {categories?.map((item: CategoryType ) => {
@@ -60,8 +57,6 @@ dispatch(selectcategory(category))
                             >
                                  Get All Products
                             </Button>
-                    
-                
                 </Paper> 
             </Grid>     
         </Grid>
