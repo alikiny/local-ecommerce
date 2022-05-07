@@ -4,6 +4,7 @@ import CreateProduct from '../../components/admin_dashboard/CreateProduct';
 import ListOrder from '../../components/admin_dashboard/ListOrder';
 import ListProduct from '../../components/admin_dashboard/ListProduct';
 import ListUser from '../../components/admin_dashboard/ListUser';
+
 type DashboardType={
     createProduct: boolean
         listProduct: boolean
@@ -18,7 +19,6 @@ const Dashboard = () => {
         listUser: false,
         listOrder: false,
     })
-    console.log(value)
 
     return (
         <div>

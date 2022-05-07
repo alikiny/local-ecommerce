@@ -12,19 +12,16 @@ const GoogleLogIn = () => {
     const responseGoogle = async(response: any) =>{
         const tokenId = response?.tokenId
         const res = await axios.post('/user/google-login', {id_token : tokenId})
-        
         const {user, token} = res.data 
+        
         if(user) {
             localStorage.setItem('access_token', token)
             localStorage.setItem('auth', 'true' )
             dispatch(loginSuccess(user))
             navigate('/')
-
         } else {
             alert('Login unSuccess')
         }
-
-        console.log(user)
     }
 
     return (
