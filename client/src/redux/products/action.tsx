@@ -4,13 +4,12 @@ import { FETCHING_PRODUCTS, FETCH_PRODUCTS_SUCCESS, FETCH_PRODUCTS_ERROR } from 
 import { ProductType, Error } from "../../types";
 
 export const fetchProducts = () => {
-return async(dispatch: Dispatch) => {
+return async(dispatch: Dispatch) => {   
     try {
         dispatch({
             type:FETCHING_PRODUCTS
         })
         const response = await axios.get('/product')
-        
         dispatch(fetchProductsSuccess(response.data))
     } catch (error: any) {
         dispatch(fetchProductsError(error))

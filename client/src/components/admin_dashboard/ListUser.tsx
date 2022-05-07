@@ -5,7 +5,7 @@ import { Paper, Table, TableBody, TableContainer, TableHead, TableRow, TableCell
 
 const ListUser = () => {
     const [users, setUsers] = useState<UserType[]>()
-    const titles = ["First Name", "Last Name", "email", "Address", "Phone no.", "User"]
+    const titles = ["First Name", "Last Name", "email", "Address", "Phone no.", "User", ""]
 
     useEffect(()=> {
         async function fetchData() {

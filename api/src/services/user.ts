@@ -6,7 +6,11 @@ const create = async (userDocument: UserDocuments): Promise<UserDocuments> => {
 }
 
 const findAll = async (): Promise<UserDocuments[]> => {
-  return User.find()
+  const allUserList = User.find()
+  if (!allUserList) {
+    throw new NotFoundError('User list is empty')
+  }
+  return allUserList
 }
 
 const findOrCreate = async (parsedToken: any) => {

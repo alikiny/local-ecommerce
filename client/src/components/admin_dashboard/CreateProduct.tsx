@@ -2,12 +2,9 @@ import React, {useEffect, useState} from 'react';
 import { SubmitHandler, useForm} from 'react-hook-form'
 import './CreateProduct.css'
 import axios from 'axios';
-import {  Category, Color, Inputs } from '../../types';
-import { fetchProducts } from '../../redux/products/action';
-import { useDispatch } from 'react-redux';
+import {  Category, Color } from '../../types';
 
 const CreateProduct = () => {
-    const dispatch = useDispatch();
     const [colors, setColors] = useState<Color>()
     const [categories, setCategories] = useState<Category>()
     const [productData] = useState({
@@ -39,8 +36,8 @@ const CreateProduct = () => {
         }
         fetch();
         
+        
     }, [setColors, setCategories])
-
     
     const onSubmit: SubmitHandler<any> = async( data, e) => {
         // prevent form reloading page after onSubmit
@@ -77,8 +74,8 @@ const CreateProduct = () => {
             // clear input field text
             reset() 
             // after adding product fetch product from db (not working)
-            dispatch(fetchProducts) 
-            console.log("dispatch action")
+           // dispatch(fetchProducts)
+            
         }
     }
 
