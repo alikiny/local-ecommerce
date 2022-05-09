@@ -1,4 +1,4 @@
-import { ADD_TO_CART, DELETE_PRODUCT, REMOVE_FROM_CART } from "../../constant"
+import { ADD_TO_CART, DELETE_PRODUCT, REMOVE_FROM_CART, UPDATE_CART } from "../../constant"
 import { ProductType } from "../../types"
 
 export const addToCart = (product: ProductType): AddToCartType => {
@@ -23,6 +23,11 @@ export const deleteProduct = (productId: string): DeleteProductType=> {
     }
     }
 
+export const updateCart = () =>{
+    return {
+        type: UPDATE_CART,
+    }
+}
 
 type AddToCartType = {
     type: typeof ADD_TO_CART,
@@ -39,5 +44,8 @@ type DeleteProductType = {
     payload: string
 
 }
+type UpdateCartType = {
+    type: typeof UPDATE_CART
+}
 
-export type ActionType = AddToCartType | RemoveFromCartType | DeleteProductType
+export type ActionType = AddToCartType | RemoveFromCartType | DeleteProductType | UpdateCartType

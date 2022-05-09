@@ -8,7 +8,7 @@ import axios from 'axios'
 import './SignUpPage.css'
 
 const SignUpPage = () => {
-    const [errorMessage, setErrorMessage] = useState('')
+    // const [errorMessage, setErrorMessage] = useState('')
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [emailValue, setEmailValue] = useState('')
@@ -25,8 +25,9 @@ const SignUpPage = () => {
                 email: emailValue,
                 password: passwordValue    
             })
-
-        const {user, token} = res.data 
+            
+            const {user, token} = res.data 
+            console.log(user)
         if(user) {
             localStorage.setItem('access_token', token)
             localStorage.setItem('auth', 'true' )
@@ -41,8 +42,8 @@ const SignUpPage = () => {
     return (
         <div className='content-container'>
              <h1>Create your accoount</h1>
-            {errorMessage && 
-                <div className="fail">{errorMessage}</div>}
+            {/* {errorMessage && 
+                <div className="fail">{errorMessage}</div>} */}
              <hr />
              <GoogleLogIn />
              <hr className='hr-text' data-content="OR" />

@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
   font-family: Arial, Helvetica, sans-serif;
   border-bottom: 1px solid lightblue;
   padding-bottom: 20px;
+  align-items: center;
 
   div {
     flex: 1;
@@ -14,13 +15,16 @@ export const Wrapper = styled.div`
   .information,
   .buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    margin-left: 50px;
+    padding-bottom: 20px;
+    
   }
- 
 
   img {
-    max-width: 80px;
+    width: 200px;
+    height: 150px;
     object-fit: cover;
-    margin-left: 40px;
+    
   }
 `;

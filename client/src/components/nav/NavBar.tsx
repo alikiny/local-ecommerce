@@ -2,7 +2,6 @@ import React from 'react';
 import {useSelector, useDispatch} from 'react-redux'
 import {Link, useNavigate} from 'react-router-dom'
 import './NavBar.css'
-import GoogleLogin from '../GoogleLogIn' 
 
 import { logout } from '../../redux/auth/action';
 import { InitialState } from '../../redux/store';

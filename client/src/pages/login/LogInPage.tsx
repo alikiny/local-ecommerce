@@ -8,7 +8,7 @@ import axios from 'axios'
 import './LogInPage.css'
 
 const LogInPage = () => {
-    const [errorMessage, setErrorMessage] = useState('')
+    // const [errorMessage, setErrorMessage] = useState('')
     const [emailValue, setEmailValue] = useState('')
     const [passwordValue, setPasswordValue] = useState('')
 
@@ -35,8 +35,8 @@ const LogInPage = () => {
     return (
         <div className="content-container">
             <h1>Log In</h1>
-            {errorMessage && 
-                <div className="fail">{errorMessage}</div>}
+            {/* {errorMessage && 
+                <div className="fail">{errorMessage}</div>} */}
             <hr />
             <GoogleLogIn />
             <hr className='hr-text' data-content="OR"  />

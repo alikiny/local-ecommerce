@@ -11,7 +11,7 @@ const CartItem = ({item}: any) => {
 
   
     return (
-        <Wrapper>
+      <Wrapper>
       <div>
         <h3>{item.product.name}</h3>
         <div className="information">
@@ -20,6 +20,7 @@ const CartItem = ({item}: any) => {
         </div>
         <div className="buttons">
           <Button
+          style={{marginRight: "30px"}}
             size="small"
             disableElevation
             variant="outlined"
@@ -29,6 +30,7 @@ const CartItem = ({item}: any) => {
           </Button>
           <p>{item.itemQuantity}</p>
           <Button
+          style={{marginLeft: "30px"}}
             size="small"
             disableElevation
             variant="outlined"
@@ -39,14 +41,17 @@ const CartItem = ({item}: any) => {
         </div>
       </div>
       <img src={item.product.image} alt={item.product.name} />
-      <Button
-            size="small"
+      <div>
+        <Button
+            size="large"
             disableElevation
             variant="text"
             onClick={() => dispatch(deleteProduct(item.product._id))}
           >
             <DeleteIcon />
           </Button>
+      </div>
+      
     </Wrapper>
     );
 };

@@ -1,4 +1,4 @@
-import { ADD_TO_CART, DELETE_PRODUCT, REMOVE_FROM_CART } from "../../constant"
+import { ADD_TO_CART, DELETE_PRODUCT, REMOVE_FROM_CART, UPDATE_CART } from "../../constant"
 import { ActionType } from "./action"
 
 type InitialState = { cart: any}
@@ -40,6 +40,9 @@ const reducer = (state= initialState, actions: ActionType ): InitialState => {
             return {...state,
             cart: state.cart.filter((item: any)=> item.product._id !== actions.payload)
             }
+        
+        case UPDATE_CART:
+            return {...state}
     
         default:
             return state;

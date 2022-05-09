@@ -12,6 +12,7 @@ export const LOGOUT = 'LOGOUT';
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
+export const UPDATE_CART = 'UPADATE_CART'
 
 export const ADD_ORDER_ID = 'ADD_ORDER_ID';
 

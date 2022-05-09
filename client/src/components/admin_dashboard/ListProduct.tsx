@@ -15,8 +15,6 @@ const ListProduct = () => {
         fetchData()
     }, [setProducts])
 
-    console.log("list products", products)
-
     return (
         <Paper>
             <h1>list product</h1>
