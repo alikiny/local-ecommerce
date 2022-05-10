@@ -42,7 +42,7 @@ const reducer = (state= initialState, actions: ActionType ): InitialState => {
             }
         
         case UPDATE_CART:
-            return {...state}
+            return {...state, cart: []}
     
         default:
             return state;

@@ -8,7 +8,7 @@ import axios from 'axios'
 import './LogInPage.css'
 
 const LogInPage = () => {
-    // const [errorMessage, setErrorMessage] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
     const [emailValue, setEmailValue] = useState('')
     const [passwordValue, setPasswordValue] = useState('')
 
@@ -16,11 +16,14 @@ const LogInPage = () => {
     const dispatch = useDispatch()
 
     const onLoginClicked = async() => {
-        const res = await axios.post('/user/sign-in', { 
+        try {
+            const res = await axios.post('/user/sign-in', { 
             email: emailValue,
             password: passwordValue    
         })
-        const {foundUser, token} = res.data 
+
+        const {foundUser, token} = res.data
+
         if(foundUser) {
             localStorage.setItem('access_token', token)
             localStorage.setItem('auth', 'true' )
@@ -30,13 +33,17 @@ const LogInPage = () => {
         } else {
             alert('Login unSuccess')
         }
+        } catch (error: any) {
+            setErrorMessage(error.response.data.message)
+        }
+        
     }
 
     return (
         <div className="content-container">
             <h1>Log In</h1>
-            {/* {errorMessage && 
-                <div className="fail">{errorMessage}</div>} */}
+            {errorMessage && 
+                <div className="fail">{errorMessage}</div>}
             <hr />
             <GoogleLogIn />
             <hr className='hr-text' data-content="OR"  />

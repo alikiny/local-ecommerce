@@ -1,5 +1,6 @@
 import { NotFoundError } from '../helpers/apiError'
 import User, { UserDocuments } from '../models/User'
+import bcrypt from 'bcryptjs'
 
 const create = async (userDocument: UserDocuments): Promise<UserDocuments> => {
   return userDocument.save()
@@ -44,12 +45,7 @@ const findProfile = async (userId: any) => {
 }
 
 const findByEmail = async (email: string) => {
-  const found = User.findOne({ email })
-  if (!found) {
-    throw new NotFoundError('User not found')
-  }
-
-  return found
+  return User.findOne({ email })
 }
 
 const findOne = async (userId: string): Promise<UserDocuments | null> => {

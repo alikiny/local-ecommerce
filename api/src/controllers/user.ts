@@ -1,12 +1,15 @@
 import { Request, Response, NextFunction } from 'express'
 import User, { UserDocuments } from '../models/User'
 import UserService from '../services/user'
-import { BadRequestError, DuplicateEntityError } from '../helpers/apiError'
+import {
+  BadRequestError,
+  DuplicateEntityError,
+  NotFoundError,
+} from '../helpers/apiError'
 import bcrypt from 'bcryptjs'
 import { Error } from 'mongoose'
 import jwt from 'jsonwebtoken'
 import { JWT_SECRET } from '../util/secrets'
-import { request } from 'http'
 
 // POST
 //@route api/v1/user
@@ -73,12 +76,12 @@ export const logInUser = async (
     const foundUser = await UserService.findByEmail(email)
 
     if (!foundUser) {
-      return res.status(400).json({ error: [{ msg: 'invalid Credentials' }] })
+      throw new NotFoundError('Invalid Credintial')
     }
     const isMatched = await bcrypt.compare(password, foundUser.password)
 
     if (!isMatched) {
-      return res.status(400).json({ error: [{ msg: 'invalid Credentials' }] })
+      throw new NotFoundError('Invalid Credintial')
     }
 
     const token = jwt.sign({ email: foundUser?.email }, JWT_SECRET, {

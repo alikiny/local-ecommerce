@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { Paper, Table, TableBody, TableContainer, TableHead, TableRow, TableCell } from '@mui/material';
 import { ProductType } from '../../types';
 
@@ -42,7 +43,7 @@ const ListProduct = () => {
                             <TableCell>{obj.sex}</TableCell>
                             <TableCell>{obj.color.map((col) => <li>{col.color}</li>)}</TableCell>
                             <TableCell>{ obj?.category?.category}</TableCell>
-                            <TableCell><button>View</button></TableCell>
+                            <TableCell><button ><Link to={`/admin/dashboard/${obj._id}`}>View</Link></button></TableCell>
                             
                             </TableRow>)}
                     </TableBody>

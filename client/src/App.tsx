@@ -17,6 +17,7 @@ import { fetchProducts } from './redux/products/action';
 
 import './App.css';
 import Dashboard from './pages/dashboard/Dashboard';
+import DashboardProduct from './pages/dashboard/DashboardProduct';
 
 
 function App()  {
@@ -41,6 +42,7 @@ useEffect(()=>{
       <Route path= '/google-login' element={<GoogleLogIn />}/>
 
       <Route path="/admin/dashboard"  element={<PrivateRoute ><Dashboard /></PrivateRoute>}/>
+      <Route path="/admin/dashboard/:id"  element={<PrivateRoute ><DashboardProduct /></PrivateRoute>}/>
 
     </Routes>
     </div>

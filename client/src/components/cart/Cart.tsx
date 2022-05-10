@@ -1,15 +1,17 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import { Wrapper } from "./Cart.styles";
 import CartItem from './cartItem/CartItem' 
 import { InitialState } from '../../redux/store';
 import Button from '@mui/material/Button'
 import axios from 'axios';
+import { updateCart } from '../../redux/cart/action';
 
 
 const Cart = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const cart = useSelector(((state: InitialState)=> state.cart.cart));
   const userId = useSelector((state: InitialState) => state.auth.user?._id)
     
@@ -45,7 +47,7 @@ const Cart = () => {
         alert(`you are ${response.data} checkout`)
         localStorage.removeItem('cart') 
         // console.log(localStorage.getItem('cart'))
-        // dispatch(updateCart())
+         dispatch(updateCart())
       }
 }
 
