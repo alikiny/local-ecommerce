@@ -13,7 +13,7 @@ const ListOrder = () => {
         }
         fetchData()
     }, [setOrderList])
-    console.log("order List:", orderList)
+   
     return (
         <Paper>
             <h1>list order</h1>
