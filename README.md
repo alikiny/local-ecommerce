@@ -65,3 +65,8 @@ npm start
 ```script
 npm run start:dev
 ```
+### Project live link
+[DEMO](https://timely-heliotrope-fb7540.netlify.app/)
+
+## Home page image
+![Home Page](picture/Nike-Sneaker.png?raw=true "Title")
