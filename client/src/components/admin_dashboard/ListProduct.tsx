@@ -31,7 +31,7 @@ const ListProduct = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {products?.map((obj) =>  <TableRow key={obj.name}>
+                        {products?.map((obj) =>  <TableRow key={obj._id}>
                             <TableCell><img 
                                 src={obj.image}
                                 style={{width: "100px", height:"100px"}} 
@@ -41,7 +41,7 @@ const ListProduct = () => {
                             <TableCell>{obj.price}</TableCell>
                             <TableCell>{obj.size}</TableCell>
                             <TableCell>{obj.sex}</TableCell>
-                            <TableCell>{obj.color.map((col) => <li>{col.color}</li>)}</TableCell>
+                            <TableCell>{obj.color.map((col) => <li key={col.color}>{col.color}</li>)}</TableCell>
                             <TableCell>{ obj?.category?.category}</TableCell>
                             <TableCell><button ><Link to={`/admin/dashboard/${obj._id}`}>View</Link></button></TableCell>
                             

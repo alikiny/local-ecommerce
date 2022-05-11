@@ -20,17 +20,19 @@ const ListOrder = () => {
             <TableContainer>
                 <Table>
                    <TableHead>
-                       {orderListTitle?.map((title)=> {
-                           return (
-                               <TableCell key={title}>{title}</TableCell>
-                           )
-                       } )}
-                       </TableHead> 
+                        <TableRow>
+                            {orderListTitle?.map((title)=> {
+                                return (
+                                    <TableCell key={title}>{title}</TableCell>
+                                )
+                            } )}
+                         </TableRow>
+                    </TableHead> 
                    <TableBody>
                        {orderList?.map((list)=> 
                        <TableRow key={list._id}>
                            <TableCell>{list.user.firstName} {list.user.lastName}</TableCell>
-                           <TableCell>{list?.product?.map((prod: any) => <li>{prod.name}</li>)}</TableCell>
+                           <TableCell>{list?.product?.map((prod: any) => <li key={prod._id}>{prod.name}</li>)}</TableCell>
                             <TableCell>{list._id}</TableCell>
                        </TableRow>
                        )}
