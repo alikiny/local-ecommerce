@@ -28,7 +28,7 @@ jobs:
           tags: ${{secrets.DOCKER_HUB_USERNAME}}/fs9-fullstack-backend:latest
       -
         name: Build and push frontend
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           context:  .
           file: ./client/Dockerfile
