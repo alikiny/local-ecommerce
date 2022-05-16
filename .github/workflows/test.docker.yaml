@@ -25,7 +25,7 @@ jobs:
           context:  ./api
           file: ./api/Dockerfile
           push: true
-          tags: ${{secrets.DOCKER_HUB_USERNAME}}/backend-test:latest
+          tags: ${{secrets.DOCKER_HUB_USERNAME}}/back-end-test:latest
       -
         name: Build and push frontend
         uses: docker/build-push-action@v3
@@ -33,4 +33,4 @@ jobs:
           context:  ./client
           file: ./client/Dockerfile
           push: true
-          tags: ${{secrets.DOCKER_HUB_USERNAME}}/frontend-test:latest
+          tags: ${{secrets.DOCKER_HUB_USERNAME}}/front-end-test:latest
