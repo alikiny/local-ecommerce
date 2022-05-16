@@ -30,7 +30,7 @@ jobs:
         name: Build and push backend
         uses: docker/build-push-action@v3
         with:
-          context:  .
+          context:  ./api
           file: ./api/Dockerfile
           push: true
           tags: ${{secrets.DOCKER_HUB_USERNAME}}/fs9-fullstack-backend:latest
@@ -40,7 +40,7 @@ jobs:
         name: Build and push frontend
         uses: docker/build-push-action@v3
         with:
-          context:  .
+          context:  ./client
           file: ./client/Dockerfile
           push: true
           tags: ${{secrets.DOCKER_HUB_USERNAME}}/fs9-fullstack-frontened:latest
