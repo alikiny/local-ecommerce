@@ -33,7 +33,7 @@ jobs:
           context:  ./api
           file: ./api/Dockerfile
           push: true
-          tags: ${{secrets.DOCKER_HUB_USERNAME}}/fs9-fullstack-backend:latest
+          tags: ${{secrets.DOCKER_HUB_USERNAME}}/fs9-fullstack-back:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
       -
@@ -43,6 +43,6 @@ jobs:
           context:  ./client
           file: ./client/Dockerfile
           push: true
-          tags: ${{secrets.DOCKER_HUB_USERNAME}}/fs9-fullstack-frontened:latest
+          tags: ${{secrets.DOCKER_HUB_USERNAME}}/fs9-fullstack-front:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
