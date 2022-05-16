@@ -26,8 +26,6 @@ jobs:
           file: ./api/Dockerfile
           push: true
           tags: ${{secrets.DOCKER_HUB_USERNAME}}/fs9-fullstack-back:latest
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
       -
         name: Build and push frontend
         uses: docker/build-push-action@v3
@@ -36,5 +34,3 @@ jobs:
           file: ./client/Dockerfile
           push: true
           tags: ${{secrets.DOCKER_HUB_USERNAME}}/fs9-fullstack-front:latest
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
