@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/Microsoft/TypeScript-Node-Starter"
   },
-  "author": "Bowden Kelly",
+  "author": "Rajeev Sah",
   "license": "MIT",
   "scripts": {
     "start": "node dist/server.js",
