@@ -25,6 +25,7 @@ jobs:
         name: Build and push backend
         uses: docker/build-push-action@v3
         with:
+          context: .
           file: ./api/Dockerfile
           push: true
           tags: ${{secrets.DOCKER_HUB_USERNAME}}/back-end-test:latest
