@@ -25,8 +25,6 @@ jobs:
           file: ./api/Dockerfile
           push: true
           tags: ${{secrets.DOCKER_HUB_USERNAME}}/back-end-test:latest
-          secrets: |
-            GIT_AUTH_TOKEN=${{ secrets.MY_TOKEN }}
       -
         name: Build and push frontend
         uses: docker/build-push-action@v3
@@ -34,5 +32,3 @@ jobs:
           file: ./client/Dockerfile
           push: true
           tags: ${{secrets.DOCKER_HUB_USERNAME}}/front-end-test:latest
-          secrets: |
-            GIT_AUTH_TOKEN=${{ secrets.MY_TOKEN }}
